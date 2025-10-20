@@ -141,7 +141,6 @@ document.addEventListener("DOMContentLoaded", function () {
     userMenu.classList.toggle("active");
   });
 
-  // Cerrar si se hace clic fuera
   document.addEventListener("click", (e) => {
     if (!userMenu.contains(e.target)) {
       userMenu.classList.remove("active");
