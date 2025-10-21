@@ -50,6 +50,7 @@ if (isset($_POST['login'])) {
 }
 
 if (isset($_POST['registro'])) {
+  $nombre = trim($_POST['nombre']);
   $email = trim($_POST['email']);
   $clave = trim($_POST['clave']);
   $clave_hash = password_hash($clave, PASSWORD_DEFAULT);
@@ -60,7 +61,7 @@ if (isset($_POST['registro'])) {
   if ($res->num_rows > 0) {
     $mensaje = "⚠️ El correo ya está registrado.";
   } else {
-    $sql = "INSERT INTO usuarios (email, clave) VALUES ('$email', '$clave')";
+    $sql = "INSERT INTO usuarios (nombre, email, clave) VALUES ('$nombre', '$email', '$clave')";
     if ($conn->query($sql) === TRUE) {
       $mensaje = "✅ Registro exitoso. Ahora puedes iniciar sesión.";
     } else {
@@ -113,7 +114,7 @@ $conn->close();
           <h2 class="title">Registrarse</h2>
           <div class="input-field">
             <i class="fas fa-user"></i>
-            <input type="text" name="nombre" placeholder="Usuario" required />
+            <input type="text" name="nombre" placeholder="Nombre" required />
           </div>
           <div class="input-field">
             <i class="fas fa-envelope"></i>
