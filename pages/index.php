@@ -1,3 +1,9 @@
+<?php
+session_start();
+$usuario_logueado = isset($_SESSION['usuario']);
+$rol = strtolower($_SESSION['rol'] ?? '');
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -18,7 +24,7 @@
                     <h1>BIBLIOIECA</h1>
                 </div>
                 <ul>
-                    <li><a href="index.html" class="active">Inicio</a></li>
+                    <li><a href="index.php" class="active">Inicio</a></li>
                     <li><a href="libros.html">Libros</a></li>
                     <li class="dropdown">
                         <a href="sobre-nosotros.html">Sobre Nosotros</a>
@@ -33,9 +39,18 @@
                             </svg>
                         </div>
                         <ul class="dropdown" id="dropdownMenu">
-                            <li><a href="../php/login.php" id="loginBtn">Iniciar sesión</a></li>
-                            <li><a href="#" id="logoutBtn" style="display:none;">Cerrar sesión</a></li>
+                            <?php if ($usuario_logueado): ?>
+                                <?php if ($rol === 'administrador'): ?>
+                                <li><a href="../admin/index.php" id="adminPanelBtn">Ir al Panel</a></li>
+                                <?php else: ?>
+                                <li><a href="libros.html" id="goBooksBtn">Ir a Libros</a></li>
+                                <?php endif; ?>
+                                <li><a href="../php/logout.php" id="logoutBtn">Cerrar sesión</a></li>
+                            <?php else: ?>
+                                <li><a href="../php/login.php" id="loginBtn">Iniciar sesión</a></li>
+                            <?php endif; ?>
                         </ul>
+
                     </li>
                 </ul>
             </nav>
@@ -45,7 +60,18 @@
             <section class="hero">
                 <h2>BIBLIOIECA</h2>
                 <p>Tu viaje literario comienza aquí.</p>
+                
+                <?php if ($usuario_logueado): ?>
+                <?php if ($rol === 'administrador'): ?>
+                <a href="../admin/index.php" class="btn-primary">Ir al Panel</a>
+                <?php else: ?>
+                <a href="libros.html" class="btn-primary">Ir a Libros</a>
+                <?php endif; ?>
+                <?php else: ?>
                 <a href="../php/login.php" class="btn-primary">Iniciar sesión</a>
+                <?php endif; ?>
+
+
             </section>
 
             <section id="sobre-nosotros" class="about-section">

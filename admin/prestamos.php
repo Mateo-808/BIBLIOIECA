@@ -29,17 +29,20 @@ $message = '';
         <nav class="admin-sidebar">
             <div class="admin-logo" style="margin-bottom:2%">
                 <img src="../imgs/ieca.jpg" alt="BIBLIOIECA Logo">
-                <h1 style="margin-left: 5%; margin-top: -3%">BIBLIOIECA Administrador</h1>
+                <h1>BIBLIOIECA - Administrador</h1>
 
             </div>
-            <ul class="admin-menu">
-                <li style="margin-bottom:1%"><a href="index.php" data-section="dashboard">Panel</a></li>
-                <li style="margin-bottom:1%"><a href="libros.php" data-section="books" >Gestión de Libros</a></li>
-                <li style="margin-bottom:1%"><a href="usuarios.php" data-section="users">Gestión de Usuarios</a></li>
-                <li style="margin-bottom:1%"><a href="prestamos.php" data-section="loans"  class="active">Préstamos</a></li>
-                <li style="margin-bottom:1%"><a href="#" data-section="loans" id="logout"><i class="ri-logout-box-line"></i>Cerrar sesión</a></li>
-         
-             
+            <ul class="container-admin-menu">
+                <ul class="admin-menu">
+                    <li style="margin-bottom:1%"><a href="index.php" data-section="dashboard">Panel</a></li>
+                    <li style="margin-bottom:1%"><a href="libros.php" data-section="books">Gestión de Libros</a></li>
+                    <li style="margin-bottom:1%"><a href="usuarios.php" data-section="users">Gestión de Usuarios</a></li>
+                    <li style="margin-bottom:1%"><a href="#" data-section="loans" class="active">Préstamos</a></li>
+    
+                    <li style="margin-bottom:1%"><a href="../php/logout.php" data-section="loans" id="logout"><i class="ri-logout-box-line"></i>Cerrar sesión</a></li>
+                </ul>
+
+                <li><a href="../pages/index.php">Inicio</a></li>
             </ul>
         </nav>
 

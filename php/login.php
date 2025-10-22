@@ -22,7 +22,8 @@ if (isset($_POST['login'])) {
     $fila = $res_admin->fetch_assoc();
 
     if ($clave === $fila['clave'] || password_verify($clave, $fila['clave'])) {
-      $_SESSION['admin'] = $email;
+      $_SESSION['usuario'] = $email;
+      $_SESSION['rol'] = 'admin';
       header("Location: ../admin/index.php");
       exit();
     } else {
@@ -38,7 +39,13 @@ if (isset($_POST['login'])) {
 
       if ($clave === $fila['clave'] || password_verify($clave, $fila['clave'])) {
         $_SESSION['usuario'] = $email;
-        header("Location: ../admin/index.php");
+        $_SESSION['rol'] = $fila['rol'];
+
+        if ($fila['rol'] === 'administrador') {
+          header("Location: ../admin/index.php");
+        } else {
+          header("Location: ../pages/libros.html");
+        }
         exit();
       } else {
         $mensaje = "❌ Contraseña incorrecta.";
@@ -53,6 +60,7 @@ if (isset($_POST['registro'])) {
   $nombre = trim($_POST['nombre']);
   $email = trim($_POST['email']);
   $clave = trim($_POST['clave']);
+  $rol = strtolower($_POST['rol'] ?? '');
   $clave_hash = password_hash($clave, PASSWORD_DEFAULT);
 
   $check = "SELECT * FROM usuarios WHERE email = '$email'";
@@ -61,14 +69,20 @@ if (isset($_POST['registro'])) {
   if ($res->num_rows > 0) {
     $mensaje = "⚠️ El correo ya está registrado.";
   } else {
-    $sql = "INSERT INTO usuarios (nombre, email, clave) VALUES ('$nombre', '$email', '$clave')";
-    if ($conn->query($sql) === TRUE) {
+    $sql = "INSERT INTO usuarios (nombre, email, clave, rol) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $nombre, $email, $clave_hash, $rol);
+
+    if ($stmt->execute()) {
       $mensaje = "✅ Registro exitoso. Ahora puedes iniciar sesión.";
     } else {
-      $mensaje = "❌ Error al registrar: " . $conn->error;
+      $mensaje = "❌ Error al registrar: " . $stmt->error;
     }
+
+    $stmt->close();
   }
 }
+
 
 $conn->close();
 ?>
@@ -83,7 +97,7 @@ $conn->close();
     <link rel="shortcut icon" href="../imgs/ieca.jpg">
 </head>
 <body>
-  <a href="../html/index.html" class="volver-btn volver-btn-izquierda">
+  <a href="../pages/index.php" class="volver-btn volver-btn-izquierda">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l4 4" /><path d="M5 12l4 -4" /></svg>  
     Volver
   </a>
@@ -112,6 +126,7 @@ $conn->close();
 
         <form action="login.php" method="POST" class="sign-up-form">
           <h2 class="title">Registrarse</h2>
+          
           <div class="input-field">
             <i class="fas fa-user"></i>
             <input type="text" name="nombre" placeholder="Nombre" required />
@@ -124,6 +139,15 @@ $conn->close();
             <i class="fas fa-lock"></i>
             <input type="password" name="clave" placeholder="Contraseña" required />
           </div>
+
+            <label for="rol">Tipo de usuario:</label>
+            <select name="rol" id="rol" required>
+              <option value="estudiante">Estudiante</option>
+              <option value="administrador">Administrador</option>
+            </select>
+
+
+
           <input type="submit" name="registro" class="btn" value="Registrarse" />
           <p class="social-text">O regístrate con Google</p>
           <div class="social-media">
