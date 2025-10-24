@@ -27,28 +27,24 @@ $message = '';
 <body>
     <div class="admin-container">
         <nav class="admin-sidebar">
-            <div class="admin-logo" style="margin-bottom:2%">
+            <div class="admin-logo">
                 <img src="../imgs/ieca.jpg" alt="BIBLIOIECA Logo">
                 <h1>BIBLIOIECA - Administrador</h1>
-
             </div>
-            <ul class="container-admin-menu">
-                <ul class="admin-menu">
-                    <li style="margin-bottom:1%"><a href="index.php" data-section="dashboard">Panel</a></li>
-                    <li style="margin-bottom:1%"><a href="libros.php" data-section="books">Gestión de Libros</a></li>
-                    <li style="margin-bottom:1%"><a href="usuarios.php" data-section="users">Gestión de Usuarios</a></li>
-                    <li style="margin-bottom:1%"><a href="#" data-section="loans" class="active">Préstamos</a></li>
-    
-                    <li style="margin-bottom:1%"><a href="../php/logout.php" data-section="loans" id="logout"><i class="ri-logout-box-line"></i>Cerrar sesión</a></li>
-                </ul>
-
-                <li><a href="../pages/index.php">Inicio</a></li>
+            <ul class="admin-menu">
+                <li><a href="index.php" data-section="dashboard">Panel</a></li>
+                <li><a href="libros.php" data-section="books">Gestión de Libros</a></li>
+                <li><a href="usuarios.php" data-section="users">Gestión de Usuarios</a></li>
+                <li><a href="prestamos.php" data-section="loans" class="active">Préstamos</a></li>
+                <li><a href="../pages/index.php" data-section="loans">Inicio</a></li>
             </ul>
+            <div class="admin-footer">
+                <a href="../php/logout.php" data-section="loans" id="logout-admin logout" class="btn-logout"><i class="ri-logout-box-line">Cerrar Sesión</i></a>
+            </div>
         </nav>
 
-<body>
- <div class="action-bar" 
-                 style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; margin-top:40px;">
+        <main>
+            <div class="action-bar" style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; margin-top:40px;">
                 <div class="filter-buttons" style="display: flex; gap: 8px;">
                     <a href="#" style="background-color: #007bff; color: white; padding: 8px 14px; border-radius: 5px; text-decoration: none;">Todos</a>
                     <a href="#" style="background-color: #28a745; color: white; padding: 8px 14px; border-radius: 5px; text-decoration: none;">Disponibles</a>
@@ -59,9 +55,8 @@ $message = '';
                 </button>
             </div>
 
-
-             <div class="table-container" 
-                 style="width: 90%; margin: 0 auto; overflow-x: auto; box-sizing: border-box;">
+            <div class="table-container" 
+                style="width: 90%; margin: 0 auto; overflow-x: auto; box-sizing: border-box;">
                 <table style="width: 90%; border-collapse: collapse; text-align: left; background-color: white;">
                     <thead>
                         <tr style="background-color: #007bff; color: white;">
@@ -88,9 +83,8 @@ $message = '';
                     </tbody>
                 </table>
             </div>
-        </div>
+        </main>
     </div>
-
     <script src="js/prestamos.js"></script>
 </body>
 </html>

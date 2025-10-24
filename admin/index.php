@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'administrador') {
-  header("Location: ../html/libros.html");
+  header("Location: ../pages/libros.html");
   exit();
 }
 
@@ -39,23 +39,20 @@ if ($resultado && $fila = $resultado->fetch_assoc()) {
 <body>
     <div class="admin-container">
         <nav class="admin-sidebar">
-            <div class="admin-logo" style="margin-bottom:2%">
+            <div class="admin-logo">
                 <img src="../imgs/ieca.jpg" alt="BIBLIOIECA Logo">
-                <h1>BIBLIOIECA - Administrador</h1>
+                <h1>BIBLIOIECA Administrador</h1>
             </div>
-
-            <ul class="container-admin-menu">
-                <ul class="admin-menu">
-                    <li style="margin-bottom:1%"><a href="#" data-section="dashboard" class="active">Panel</a></li>
-                    <li style="margin-bottom:1%"><a href="libros.php" data-section="books">Gestión de Libros</a></li>
-                    <li style="margin-bottom:1%"><a href="usuarios.php" data-section="users">Gestión de Usuarios</a></li>
-                    <li style="margin-bottom:1%"><a href="prestamos.php" data-section="loans">Préstamos</a></li>
-    
-                    <li style="margin-bottom:1%"><a href="../php/logout.php" data-section="loans" id="logout"><i class="ri-logout-box-line"></i>Cerrar sesión</a></li>
-                </ul>
-
-                <li><a href="../pages/index.php">Inicio</a></li>
+            <ul class="admin-menu">
+                <li><a href="#" data-section="dashboard" class="active">Panel</a></li>
+                <li><a href="libros.php" data-section="books">Gestión de Libros</a></li>
+                <li><a href="usuarios.php" data-section="users">Gestión de Usuarios</a></li>
+                <li><a href="prestamos.php" data-section="loans">Préstamos</a></li>
+                <li><a href="../pages/index.php" data-section="loans">Inicio</a></li>
             </ul>
+            <div class="admin-footer">
+                <a href="../php/logout.php" data-section="loans" id="logout-admin logout" class="btn-logout"><i class="ri-logout-box-line">Cerrar Sesión</i></a>
+            </div>
         </nav>
 
         <main class="admin-content">
@@ -73,12 +70,19 @@ if ($resultado && $fila = $resultado->fetch_assoc()) {
                         <h3>Préstamos Activos</h3>
                         <p id="active-loans">Cargando...</p>
                     </div>
+
+                </div>
+                <div class="recent-activity">
+                    <h3>Actividad Reciente</h3>
+                    <div id="activity-list" class="activity-list">
+                        <!-- Se llenará automaticamente -->
+                    </div>
                 </div>
 
             </section>
-</main>
+        </main>
            
-<div class="dashboard-sections" style="width: 100%; display: flex; justify-content: center;">
+<!-- <div class="dashboard-sections" style="width: 100%; display: flex; justify-content: center;">
     <div class="section-card" style="width: 100%; background-color: #fff; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 20px; box-sizing: border-box;">
         <h2 style="text-align: center; color: #333; margin-bottom: 20px;">Historial de préstamos</h2>
         <div class="table-container" style="width: 100%; overflow-x: auto;">
@@ -100,7 +104,7 @@ if ($resultado && $fila = $resultado->fetch_assoc()) {
             </table>
         </div>
     </div>
-</div>
+</div> -->
 
     <script src="js/admin.js"></script>
 </body>
